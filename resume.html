@@ -1,390 +1,993 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Resume Page</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- custom css -->
-        <link rel="stylesheet" href="assets/css/main.css">
-    </head>
-    <body>
-        <nav class = "navbar bg-white">
-            <div class="container">
-                <div class = "navbar-content">
-                    <div class = "brand-and-toggler">
-                        <a href = "index.html" class = "navbar-brand">
-                            <img src = "assets/images/curriculum-vitae.png" alt = "" class = "navbar-brand-icon">
-                            <span class = "navbar-brand-text">build <span>resume.</span>
-                        </a>
-                        <button type = "button" class = "navbar-toggler-btn">
-                            <div class = "bars">
-                                <div class = "bar"></div>
-                                <div class = "bar"></div>
-                                <div class = "bar"></div>
-                            </div>
-                        </button>
-                    </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d5dbdb;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .form-section {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .preview-section {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Form Styles */
+        .section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .add-btn, .remove-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .add-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Resume Preview Styles */
+        .resume-preview {
+            background-color: white;
+            min-height: 1000px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .personal-info {
+            flex: 2;
+        }
+
+        .contact-info {
+            flex: 1;
+            text-align: right;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .contact-item {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .resume-section {
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .summary-text {
+            text-align: justify;
+        }
+
+        .experience-item, .education-item, .project-item {
+            margin-bottom: 20px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .item-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .item-subtitle {
+            font-style: italic;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            margin-top: 5px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: #ecf0f1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .achievement-item {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .achievement-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .resume-preview, .resume-preview * {
+                visibility: visible;
+            }
+
+            .resume-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .form-section, .preview-section {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .resume-header {
+                flex-direction: column;
+            }
+
+            .contact-info {
+                text-align: left;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" stroke="#3498db" stroke-width="2"/>
+                        <path d="M7 7H17" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 12H17" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 17H13" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Resume<span>Builder</span></span>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary no-print" onclick="resetForm()">Reset</button>
+                    <button class="btn btn-primary no-print" onclick="printResume()">Save as PDF</button>
                 </div>
             </div>
-        </nav>
+        </div>
+    </header>
 
-        <section id = "about-sc" class = "">
-            <div class = "container">
-                <div class = "about-cnt">
-                    <form action="" class="cv-form" id = "cv-form">
-                        <div class = "cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>about section</h3>
-                            </div>
-                            <div class = "cv-form-row cv-form-row-about">
-                                <div class = "cols-3">
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">First Name</label>
-                                        <input name = "firstname" type = "text" class = "form-control firstname" id = "" onkeyup="generateCV()" placeholder="e.g. John">
-                                        <span class="form-text"></span>
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Middle Name <span class = "opt-text">(optional)</span></label>
-                                        <input name = "middlename" type = "text" class = "form-control middlename" id = "" onkeyup="generateCV()" placeholder="e.g. Herbert">
-                                        <span class="form-text"></span>
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Last Name</label>
-                                        <input name = "lastname" type = "text" class = "form-control lastname" id = "" onkeyup="generateCV()" placeholder="e.g. Doe">
-                                        <span class="form-text"></span>
-                                    </div>
-                                </div>
-
-                                <div class="cols-3">
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Your Image</label>
-                                        <input name = "image" type = "file" class = "form-control image" id = "" accept = "image/*" onchange="previewImage()">
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Designation</label>
-                                        <input name = "designation" type = "text" class = "form-control designation" id = "" onkeyup="generateCV()" placeholder="e.g. Sr.Accountants">
-                                        <span class="form-text"></span>
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Address</label>
-                                        <input name = "address" type = "text" class = "form-control address" id = "" onkeyup="generateCV()" placeholder="e.g. Lake Street-23">
-                                        <span class="form-text"></span>
-                                    </div>
-                                </div>
-
-                                <div class = "cols-3">
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Email</label>
-                                        <input name = "email" type = "text" class = "form-control email" id = "" onkeyup="generateCV()" placeholder="e.g. johndoe@gmail.com">
-                                        <span class="form-text"></span>
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Phone No:</label>
-                                        <input name = "phoneno" type = "text" class = "form-control phoneno" id = "" onkeyup="generateCV()" placeholder="e.g. 456-768-798, 567.654.002">
-                                        <span class="form-text"></span>
-                                    </div>
-                                    <div class = "form-elem">
-                                        <label for = "" class = "form-label">Summary</label>
-                                        <input name = "summary" type = "text" class = "form-control summary" id = "" onkeyup="generateCV()" placeholder="e.g. Doe">
-                                        <span class="form-text"></span>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="container">
+        <div class="main-content">
+            <!-- Form Section -->
+            <section class="form-section no-print">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="John" oninput="updateResume()">
                         </div>
-
-                        <div class="cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>achievements</h3>
-                            </div>
-
-                            <div class = "row-separator repeater">
-                                <div class = "repeater" data-repeater-list = "group-a">
-                                    <div data-repeater-item>
-                                        <div class = "cv-form-row cv-form-row-achievement">
-                                            <div class = "cols-2">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Title</label>
-                                                    <input name = "achieve_title" type = "text" class = "form-control achieve_title" id = "" onkeyup="generateCV()" placeholder="e.g. johndoe@gmail.com">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Description</label>
-                                                    <input name = "achieve_description" type = "text" class = "form-control achieve_description" id = "" onkeyup="generateCV()" placeholder="e.g. johndoe@gmail.com">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
-                            </div>
+                        <div class="form-col">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Doe" oninput="updateResume()">
                         </div>
-
-                        <div class="cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>experience</h3>
-                            </div>
-
-                            <div class = "row-separator repeater">
-                                <div class = "repeater" data-repeater-list = "group-b">
-                                    <div data-repeater-item>
-                                        <div class = "cv-form-row cv-form-row-experience">
-                                            <div class = "cols-3">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Title</label>
-                                                    <input name = "exp_title" type = "text" class = "form-control exp_title" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Company / Organization</label>
-                                                    <input name = "exp_organization" type = "text" class = "form-control exp_organization" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Location</label>
-                                                    <input name = "exp_location" type = "text" class = "form-control exp_location" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class = "cols-3">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Start Date</label>
-                                                    <input name = "exp_start_date" type = "date" class = "form-control exp_start_date" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">End Date</label>
-                                                    <input name = "exp_end_date" type = "date" class = "form-control exp_end_date" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Description</label>
-                                                    <input name = "exp_description" type = "text" class = "form-control exp_description" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-
-                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle" placeholder="Software Engineer" oninput="updateResume()">
                         </div>
-
-                        <div class="cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>education</h3>
-                            </div>
-
-                            <div class = "row-separator repeater">
-                                <div class = "repeater" data-repeater-list = "group-c">
-                                    <div data-repeater-item>
-                                        <div class = "cv-form-row cv-form-row-experience">
-                                            <div class = "cols-3">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">School</label>
-                                                    <input name = "edu_school" type = "text" class = "form-control edu_school" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Degree</label>
-                                                    <input name = "edu_degree" type = "text" class = "form-control edu_degree" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">City</label>
-                                                    <input name = "edu_city" type = "text" class = "form-control edu_city" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class = "cols-3">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Start Date</label>
-                                                    <input name = "edu_start_date" type = "date" class = "form-control edu_start_date" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">End Date</label>
-                                                    <input name = "edu_graduation_date" type = "date" class = "form-control edu_graduation_date" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Description</label>
-                                                    <input name = "edu_description" type = "text" class = "form-control edu_description" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-
-                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="john.doe@example.com" oninput="updateResume()">
                         </div>
-
-                        <div class="cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>projects</h3>
-                            </div>
-
-                            <div class = "row-separator repeater">
-                                <div class = "repeater" data-repeater-list = "group-d">
-                                    <div data-repeater-item>
-                                        <div class = "cv-form-row cv-form-row-experience">
-                                            <div class = "cols-3">
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Project Name</label>
-                                                    <input name = "proj_title" type = "text" class = "form-control proj_title" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Project link</label>
-                                                    <input name = "proj_link" type = "text" class = "form-control proj_link" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                                <div class = "form-elem">
-                                                    <label for = "" class = "form-label">Description</label>
-                                                    <input name = "proj_description" type = "text" class = "form-control proj_description" id = "" onkeyup="generateCV()">
-                                                    <span class="form-text"></span>
-                                                </div>
-                                            </div>
-                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
-                            </div>
+                        <div class="form-col">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" placeholder="(123) 456-7890" oninput="updateResume()">
                         </div>
-
-                        <div class="cv-form-blk">
-                            <div class = "cv-form-row-title">
-                                <h3>skills</h3>
-                            </div>
-
-                            <div class = "row-separator repeater">
-                                <div class = "repeater" data-repeater-list = "group-e">
-                                    <div data-repeater-item>
-                                        <div class = "cv-form-row cv-form-row-skills">
-                                            <div class = "form-elem">
-                                                <label for = "" class = "form-label">Skill</label>
-                                                <input name = "skill" type = "text" class = "form-control skill" id = "" onkeyup="generateCV()">
-                                                <span class="form-text"></span>
-                                            </div>
-                                            
-                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="New York, NY" oninput="updateResume()">
                         </div>
-                    </form>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="summary">Professional Summary</label>
+                            <textarea id="summary" rows="4" placeholder="Experienced professional with..." oninput="updateResume()"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section id = "preview-sc" class = "print_area">
-            <div class = "container">
-                <div class = "preview-cnt">
-                    <div class = "preview-cnt-l bg-green text-white">
-                        <div class = "preview-blk">
-                            <div class = "preview-image">
-                                <img src = "" alt = "" id = "image_dsp"> 
-                            </div>
-                            <div class = "preview-item preview-item-name">
-                                <span class = "preview-item-val fw-6" id = "fullname_dsp"></span>
-                            </div>
-                            <div class = "preview-item">
-                                <span class = "preview-item-val text-uppercase fw-6 ls-1" id = "designation_dsp"></span>
+                <h2 class="section-title">Work Experience</h2>
+                <div id="experience-container">
+                    <div class="experience-item form-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="jobTitle1">Job Title</label>
+                                <input type="text" id="jobTitle1" placeholder="Senior Developer" oninput="updateResume()">
                             </div>
                         </div>
-
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>about</h3>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="company1">Company</label>
+                                <input type="text" id="company1" placeholder="Tech Solutions Inc." oninput="updateResume()">
                             </div>
-                            <div class = "preview-blk-list">
-                                <div class = "preview-item">
-                                    <span class = "preview-item-val" id = "phoneno_dsp"></span>
-                                </div>
-                                <div class = "preview-item">
-                                    <span class = "preview-item-val" id = "email_dsp"></span>
-                                </div>
-                                <div class = "preview-item">
-                                    <span class = "preview-item-val" id = "address_dsp"></span>
-                                </div>
-                                <div class = "preview-item">
-                                    <span class = "preview-item-val" id = "summary_dsp"></span>
-                                </div>
+                            <div class="form-col">
+                                <label for="location1">Location</label>
+                                <input type="text" id="location1" placeholder="New York, NY" oninput="updateResume()">
                             </div>
                         </div>
-
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>skills</h3>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="startDate1">Start Date</label>
+                                <input type="month" id="startDate1" oninput="updateResume()">
                             </div>
-                            <div class = "skills-items preview-blk-list" id = "skills_dsp">
-                                <!-- skills list here -->
+                            <div class="form-col">
+                                <label for="endDate1">End Date</label>
+                                <input type="month" id="endDate1" oninput="updateResume()">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="description1">Description</label>
+                                <textarea id="description1" rows="3" placeholder="Responsibilities and achievements..." oninput="updateResume()"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="add-btn" onclick="addExperience()">Add Experience</button>
+                </div>
+
+                <h2 class="section-title">Education</h2>
+                <div id="education-container">
+                    <div class="education-item form-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="degree1">Degree</label>
+                                <input type="text" id="degree1" placeholder="Bachelor of Science in Computer Science" oninput="updateResume()">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="school1">College</label>
+                                <input type="text" id="school1" placeholder="University of Technology" oninput="updateResume()">
+                            </div>
+                            <div class="form-col">
+                                <label for="schoolLocation1">Location</label>
+                                <input type="text" id="schoolLocation1" placeholder="Boston, MA" oninput="updateResume()">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="gradDate1">Graduation Date</label>
+                                <input type="month" id="gradDate1" oninput="updateResume()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="add-btn" onclick="addEducation()">Add Education</button>
+                </div>
+
+                <h2 class="section-title">Skills</h2>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="skills">Skills (comma separated)</label>
+                            <input type="text" id="skills" placeholder="JavaScript, React, Node.js, Python" oninput="updateResume()">
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Projects</h2>
+                <div id="projects-container">
+                    <div class="project-item form-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="projectName1">Project Name</label>
+                                <input type="text" id="projectName1" placeholder="E-commerce Website" oninput="updateResume()">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="projectDescription1">Description</label>
+                                <textarea id="projectDescription1" rows="3" placeholder="Project details and outcomes..." oninput="updateResume()"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="add-btn" onclick="addProject()">Add Project</button>
+                </div>
+
+                <h2 class="section-title">Achievements</h2>
+                <div id="achievements-container">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="achievement1">Achievement</label>
+                                <input type="text" id="achievement1" placeholder="Employee of the Year 2022" oninput="updateResume()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="add-btn" onclick="addAchievement()">Add Achievement</button>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section">
+                <div class="resume-preview" id="resumePreview">
+                    <div class="resume-header">
+                        <div class="personal-info">
+                            <h1 class="name" id="previewName">John Doe</h1>
+                            <p class="title" id="previewTitle">Software Engineer</p>
+                        </div>
+                        <div class="contact-info">
+                            <p class="contact-item" id="previewEmail">john.doe@example.com</p>
+                            <p class="contact-item" id="previewPhone">(123) 456-7890</p>
+                            <p class="contact-item" id="previewLocation">New York, NY</p>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <h2 class="section-heading">Professional Summary</h2>
+                        <p class="summary-text" id="previewSummary">Experienced professional with a proven track record of success in...</p>
+                    </div>
+
+                    <div class="resume-section">
+                        <h2 class="section-heading">Work Experience</h2>
+                        <div id="previewExperience">
+                            <div class="experience-item">
+                                <div class="item-header">
+                                    <span class="item-title">Senior Developer</span>
+                                    <span class="item-date">Jan 2020 - Present</span>
+                                </div>
+                                <p class="item-subtitle">Tech Solutions Inc., New York, NY</p>
+                                <p class="item-description">Responsibilities and achievements in this role...</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class = "preview-cnt-r bg-white">
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>Achievements</h3>
+                    <div class="resume-section">
+                        <h2 class="section-heading">Education</h2>
+                        <div id="previewEducation">
+                            <div class="education-item">
+                                <div class="item-header">
+                                    <span class="item-title">Bachelor of Science in Computer Science</span>
+                                    <span class="item-date">May 2019</span>
+                                </div>
+                                <p class="item-subtitle">University of Technology, Boston, MA</p>
                             </div>
-                            <div class = "achievements-items preview-blk-list" id = "achievements_dsp"></div>
                         </div>
+                    </div>
 
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>educations</h3>
-                            </div>
-                            <div class = "educations-items preview-blk-list" id = "educations_dsp"></div>
+                    <div class="resume-section">
+                        <h2 class="section-heading">Skills</h2>
+                        <div class="skills-list" id="previewSkills">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
                         </div>
+                    </div>
 
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>experiences</h3>
+                    <div class="resume-section">
+                        <h2 class="section-heading">Projects</h2>
+                        <div id="previewProjects">
+                            <div class="project-item">
+                                <div class="item-header">
+                                    <span class="item-title">E-commerce Website</span>
+                                </div>
+                                <p class="item-description">Project details and outcomes...</p>
                             </div>
-                            <div class = "experiences-items preview-blk-list" id = "experiences_dsp"></div>
                         </div>
+                    </div>
 
-                        <div class = "preview-blk">
-                            <div class = "preview-blk-title">
-                                <h3>projects</h3>
-                            </div>
-                            <div class = "projects-items preview-blk-list" id = "projects_dsp"></div>
+                    <div class="resume-section">
+                        <h2 class="section-heading">Achievements</h2>
+                        <div id="previewAchievements">
+                            <p class="achievement-item">Employee of the Year 2022</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+    </div>
 
-        <section class = "print-btn-sc">
-            <div class = "container">
-                <button type = "button" class = "print-btn btn btn-primary" onclick="printCV()">Print CV</button>
-            </div>
-        </section>
+    <script>
+        // Initialize counters for dynamic fields
+        let experienceCount = 1;
+        let educationCount = 1;
+        let projectCount = 1;
+        let achievementCount = 1;
 
+        // Update resume preview with form data
+        function updateResume() {
+            // Personal Information
+            document.getElementById('previewName').textContent =
+                (document.getElementById('firstName').value || 'John') + ' ' +
+                (document.getElementById('lastName').value || 'Doe');
+            document.getElementById('previewTitle').textContent =
+                document.getElementById('jobTitle').value || 'Software Engineer';
+            document.getElementById('previewEmail').textContent =
+                document.getElementById('email').value || 'john.doe@example.com';
+            document.getElementById('previewPhone').textContent =
+                document.getElementById('phone').value || '(123) 456-7890';
+            document.getElementById('previewLocation').textContent =
+                document.getElementById('location').value || 'New York, NY';
+            document.getElementById('previewSummary').textContent =
+                document.getElementById('summary').value || 'Experienced professional with a proven track record of success in...';
 
-        
+            // Skills
+            const skillsInput = document.getElementById('skills').value || 'JavaScript, React, Node.js, Python';
+            const skillsArray = skillsInput.split(',').map(skill => skill.trim());
+            const skillsContainer = document.getElementById('previewSkills');
+            skillsContainer.innerHTML = '';
+            skillsArray.forEach(skill => {
+                if (skill) {
+                    const skillElement = document.createElement('span');
+                    skillElement.className = 'skill-tag';
+                    skillElement.textContent = skill;
+                    skillsContainer.appendChild(skillElement);
+                }
+            });
 
-        <!-- jquery cdn -->
-        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-        <!-- jquery repeater cdn -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.js" integrity="sha512-bZAXvpVfp1+9AUHQzekEZaXclsgSlAeEnMJ6LfFAvjqYUVZfcuVXeQoN5LhD7Uw0Jy4NCY9q3kbdEXbwhZUmUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!-- custom js -->
-        <script src = "assets/js/script.js"></script>
-        <!-- app js -->
-        <script src="assets/js/app.js"></script>
-    </body>
+            // Update dynamic sections
+            updateExperiencePreview();
+            updateEducationPreview();
+            updateProjectsPreview();
+            updateAchievementsPreview();
+        }
+
+        // Add new experience field
+        function addExperience() {
+            experienceCount++;
+            const container = document.getElementById('experience-container');
+            const newExperience = document.createElement('div');
+            newExperience.className = 'experience-item form-group';
+            newExperience.innerHTML = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="jobTitle${experienceCount}">Job Title</label>
+                        <input type="text" id="jobTitle${experienceCount}" placeholder="Senior Developer" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="company${experienceCount}">Company</label>
+                        <input type="text" id="company${experienceCount}" placeholder="Tech Solutions Inc." oninput="updateResume()">
+                    </div>
+                    <div class="form-col">
+                        <label for="location${experienceCount}">Location</label>
+                        <input type="text" id="location${experienceCount}" placeholder="New York, NY" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="startDate${experienceCount}">Start Date</label>
+                        <input type="month" id="startDate${experienceCount}" oninput="updateResume()">
+                    </div>
+                    <div class="form-col">
+                        <label for="endDate${experienceCount}">End Date</label>
+                        <input type="month" id="endDate${experienceCount}" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="description${experienceCount}">Description</label>
+                        <textarea id="description${experienceCount}" rows="3" placeholder="Responsibilities and achievements..." oninput="updateResume()"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
+                </div>
+            `;
+            container.appendChild(newExperience);
+        }
+
+        // Update experience preview
+        function updateExperiencePreview() {
+            const previewContainer = document.getElementById('previewExperience');
+            previewContainer.innerHTML = '';
+
+            for (let i = 1; i <= experienceCount; i++) {
+                const jobTitle = document.getElementById(`jobTitle${i}`);
+                const company = document.getElementById(`company${i}`);
+                const location = document.getElementById(`location${i}`);
+                const startDate = document.getElementById(`startDate${i}`);
+                const endDate = document.getElementById(`endDate${i}`);
+                const description = document.getElementById(`description${i}`);
+
+                if (jobTitle && jobTitle.value) {
+                    const experienceItem = document.createElement('div');
+                    experienceItem.className = 'experience-item';
+
+                    const itemHeader = document.createElement('div');
+                    itemHeader.className = 'item-header';
+
+                    const itemTitle = document.createElement('span');
+                    itemTitle.className = 'item-title';
+                    itemTitle.textContent = jobTitle.value;
+
+                    const itemDate = document.createElement('span');
+                    itemDate.className = 'item-date';
+
+                    const start = startDate.value ? new Date(startDate.value).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+                    const end = endDate.value ? new Date(endDate.value).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : 'Present';
+                    itemDate.textContent = start + (start && end ? ' - ' : '') + end;
+
+                    itemHeader.appendChild(itemTitle);
+                    itemHeader.appendChild(itemDate);
+
+                    const itemSubtitle = document.createElement('p');
+                    itemSubtitle.className = 'item-subtitle';
+
+                    const companyText = company.value || '';
+                    const locationText = location.value || '';
+                    itemSubtitle.textContent = companyText + (companyText && locationText ? ', ' : '') + locationText;
+
+                    const itemDescription = document.createElement('p');
+                    itemDescription.className = 'item-description';
+                    itemDescription.textContent = description.value || '';
+
+                    experienceItem.appendChild(itemHeader);
+                    experienceItem.appendChild(itemSubtitle);
+                    experienceItem.appendChild(itemDescription);
+
+                    previewContainer.appendChild(experienceItem);
+                }
+            }
+        }
+
+        // Add new education field
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('education-container');
+            const newEducation = document.createElement('div');
+            newEducation.className = 'education-item form-group';
+            newEducation.innerHTML = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="degree${educationCount}">Degree</label>
+                        <input type="text" id="degree${educationCount}" placeholder="Bachelor of Science in Computer Science" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="school${educationCount}">School</label>
+                        <input type="text" id="school${educationCount}" placeholder="University of Technology" oninput="updateResume()">
+                    </div>
+                    <div class="form-col">
+                        <label for="schoolLocation${educationCount}">Location</label>
+                        <input type="text" id="schoolLocation${educationCount}" placeholder="Boston, MA" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="gradDate${educationCount}">Graduation Date</label>
+                        <input type="month" id="gradDate${educationCount}" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
+                </div>
+            `;
+            container.appendChild(newEducation);
+        }
+
+        // Update education preview
+        function updateEducationPreview() {
+            const previewContainer = document.getElementById('previewEducation');
+            previewContainer.innerHTML = '';
+
+            for (let i = 1; i <= educationCount; i++) {
+                const degree = document.getElementById(`degree${i}`);
+                const school = document.getElementById(`school${i}`);
+                const location = document.getElementById(`schoolLocation${i}`);
+                const gradDate = document.getElementById(`gradDate${i}`);
+
+                if (degree && degree.value) {
+                    const educationItem = document.createElement('div');
+                    educationItem.className = 'education-item';
+
+                    const itemHeader = document.createElement('div');
+                    itemHeader.className = 'item-header';
+
+                    const itemTitle = document.createElement('span');
+                    itemTitle.className = 'item-title';
+                    itemTitle.textContent = degree.value;
+
+                    const itemDate = document.createElement('span');
+                    itemDate.className = 'item-date';
+                    itemDate.textContent = gradDate.value ? new Date(gradDate.value).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+
+                    itemHeader.appendChild(itemTitle);
+                    itemHeader.appendChild(itemDate);
+
+                    const itemSubtitle = document.createElement('p');
+                    itemSubtitle.className = 'item-subtitle';
+
+                    const schoolText = school.value || '';
+                    const locationText = location.value || '';
+                    itemSubtitle.textContent = schoolText + (schoolText && locationText ? ', ' : '') + locationText;
+
+                    educationItem.appendChild(itemHeader);
+                    educationItem.appendChild(itemSubtitle);
+
+                    previewContainer.appendChild(educationItem);
+                }
+            }
+        }
+
+        // Add new project field
+        function addProject() {
+            projectCount++;
+            const container = document.getElementById('projects-container');
+            const newProject = document.createElement('div');
+            newProject.className = 'project-item form-group';
+            newProject.innerHTML = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="projectName${projectCount}">Project Name</label>
+                        <input type="text" id="projectName${projectCount}" placeholder="E-commerce Website" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="projectDescription${projectCount}">Description</label>
+                        <textarea id="projectDescription${projectCount}" rows="3" placeholder="Project details and outcomes..." oninput="updateResume()"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
+                </div>
+            `;
+            container.appendChild(newProject);
+        }
+
+        // Update projects preview
+        function updateProjectsPreview() {
+            const previewContainer = document.getElementById('previewProjects');
+            previewContainer.innerHTML = '';
+
+            for (let i = 1; i <= projectCount; i++) {
+                const projectName = document.getElementById(`projectName${i}`);
+                const projectDescription = document.getElementById(`projectDescription${i}`);
+
+                if (projectName && projectName.value) {
+                    const projectItem = document.createElement('div');
+                    projectItem.className = 'project-item';
+
+                    const itemHeader = document.createElement('div');
+                    itemHeader.className = 'item-header';
+
+                    const itemTitle = document.createElement('span');
+                    itemTitle.className = 'item-title';
+                    itemTitle.textContent = projectName.value;
+
+                    itemHeader.appendChild(itemTitle);
+
+                    const itemDescription = document.createElement('p');
+                    itemDescription.className = 'item-description';
+                    itemDescription.textContent = projectDescription.value || '';
+
+                    projectItem.appendChild(itemHeader);
+                    projectItem.appendChild(itemDescription);
+
+                    previewContainer.appendChild(projectItem);
+                }
+            }
+        }
+
+        // Add new achievement field
+        function addAchievement() {
+            achievementCount++;
+            const container = document.getElementById('achievements-container');
+            const newAchievement = document.createElement('div');
+            newAchievement.className = 'form-group';
+            newAchievement.innerHTML = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="achievement${achievementCount}">Achievement</label>
+                        <input type="text" id="achievement${achievementCount}" placeholder="Employee of the Year 2022" oninput="updateResume()">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="remove-btn" onclick="this.parentElement.remove(); updateResume();">Remove</button>
+                </div>
+            `;
+            container.appendChild(newAchievement);
+        }
+
+        // Update achievements preview
+        function updateAchievementsPreview() {
+            const previewContainer = document.getElementById('previewAchievements');
+            previewContainer.innerHTML = '';
+
+            for (let i = 1; i <= achievementCount; i++) {
+                const achievement = document.getElementById(`achievement${i}`);
+
+                if (achievement && achievement.value) {
+                    const achievementItem = document.createElement('p');
+                    achievementItem.className = 'achievement-item';
+                    achievementItem.textContent = achievement.value;
+                    previewContainer.appendChild(achievementItem);
+                }
+            }
+        }
+
+        // Print resume as PDF
+        function printResume() {
+            window.print();
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                document.querySelectorAll('input, textarea').forEach(element => {
+                    element.value = '';
+                });
+
+                // Reset counters and remove additional fields
+                experienceCount = 1;
+                educationCount = 1;
+                projectCount = 1;
+                achievementCount = 1;
+
+                // Remove additional fields
+                const experienceContainer = document.getElementById('experience-container');
+                const educationContainer = document.getElementById('education-container');
+                const projectsContainer = document.getElementById('projects-container');
+                const achievementsContainer = document.getElementById('achievements-container');
+
+                while (experienceContainer.children.length > 1) {
+                    experienceContainer.removeChild(experienceContainer.lastChild);
+                }
+
+                while (educationContainer.children.length > 1) {
+                    educationContainer.removeChild(educationContainer.lastChild);
+                }
+
+                while (projectsContainer.children.length > 1) {
+                    projectsContainer.removeChild(projectsContainer.lastChild);
+                }
+
+                while (achievementsContainer.children.length > 1) {
+                    achievementsContainer.removeChild(achievementsContainer.lastChild);
+                }
+
+                // Update preview
+                updateResume();
+            }
+        }
+
+        // Initialize the resume with default values
+        window.onload = function() {
+            updateResume();
+        };
+    </script>
+</body>
 </html>
