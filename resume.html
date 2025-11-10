@@ -618,6 +618,48 @@
             </div>
           </div>
 
+          <h2 class="section-title">Internships</h2>
+
+          <div id="internships-container">
+            <div class="form-group">
+              <div class="form-row">
+                <div class="form-col">
+                  <label for="company1">Company Name</label>
+                  <input
+                    type="text"
+                    id="company1"
+                    placeholder="Tech Solutions Pvt Ltd"
+                    oninput="updateResume()"
+                  />
+                </div>
+                <div class="form-col">
+                  <label for="domain1">Domain</label>
+                  <input
+                    type="text"
+                    id="domain1"
+                    placeholder="Web Development"
+                    oninput="updateResume()"
+                  />
+                </div>
+                <div class="form-col">
+                  <label for="duration1">Duration</label>
+                  <input
+                    type="text"
+                    id="duration1"
+                    placeholder="3 Months"
+                    oninput="updateResume()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="add-btn" onclick="addInternship()">
+              Add Internship
+            </button>
+          </div>
+
           <h2 class="section-title">Projects</h2>
           <div id="projects-container">
             <div class="project-item form-group">
@@ -1116,6 +1158,35 @@
             previewContainer.appendChild(projectItem);
           }
         }
+      }
+
+      let internshipCount = 1;
+
+      function addInternship() {
+        internshipCount++;
+        const container = document.getElementById("internships-container");
+        const newInternship = document.createElement("div");
+        newInternship.className = "form-group";
+        newInternship.innerHTML = `
+        <div class="form-row">
+            <div class="form-col">
+                <label for="company${internshipCount}">Company Name</label>
+                <input type="text" id="company${internshipCount}" placeholder="Tech Solutions Pvt Ltd" oninput="updateResume()">
+            </div>
+            <div class="form-col">
+                <label for="domain${internshipCount}">Domain</label>
+                <input type="text" id="domain${internshipCount}" placeholder="Web Development" oninput="updateResume()">
+            </div>
+            <div class="form-col">
+                <label for="duration${internshipCount}">Duration</label>
+                <input type="text" id="duration${internshipCount}" placeholder="3 Months" oninput="updateResume()">
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
+        </div>
+    `;
+        container.appendChild(newInternship);
       }
 
       let certificateCount = 1;
