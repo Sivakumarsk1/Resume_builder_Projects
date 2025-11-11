@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professional Resume Builder</title>
     <style>
+      /* Your existing CSS remains the same */
       /* Reset and Base Styles */
       * {
         margin: 0;
@@ -248,7 +249,9 @@
 
       .experience-item,
       .education-item,
-      .project-item {
+      .project-item,
+      .internship-item,
+      .certificate-item {
         margin-bottom: 20px;
       }
 
@@ -411,6 +414,7 @@
       <div class="main-content">
         <!-- Form Section -->
         <section class="form-section no-print">
+          <!-- Your existing form sections remain the same -->
           <h2 class="section-title">Personal Information</h2>
           <div class="form-group">
             <div class="form-row">
@@ -619,33 +623,32 @@
           </div>
 
           <h2 class="section-title">Internships</h2>
-
           <div id="internships-container">
             <div class="form-group">
               <div class="form-row">
                 <div class="form-col">
-                  <label for="company1">Company Name</label>
+                  <label for="internshipCompany1">Company Name</label>
                   <input
                     type="text"
-                    id="company1"
+                    id="internshipCompany1"
                     placeholder="Tech Solutions Pvt Ltd"
                     oninput="updateResume()"
                   />
                 </div>
                 <div class="form-col">
-                  <label for="domain1">Domain</label>
+                  <label for="internshipDomain1">Domain</label>
                   <input
                     type="text"
-                    id="domain1"
+                    id="internshipDomain1"
                     placeholder="Web Development"
                     oninput="updateResume()"
                   />
                 </div>
                 <div class="form-col">
-                  <label for="duration1">Duration</label>
+                  <label for="internshipDuration1">Duration</label>
                   <input
                     type="text"
-                    id="duration1"
+                    id="internshipDuration1"
                     placeholder="3 Months"
                     oninput="updateResume()"
                   />
@@ -653,7 +656,6 @@
               </div>
             </div>
           </div>
-
           <div class="form-actions">
             <button type="button" class="add-btn" onclick="addInternship()">
               Add Internship
@@ -712,34 +714,34 @@
               Add Achievement
             </button>
           </div>
-          <h2 class="section-title">Certificates</h2>
 
+          <h2 class="section-title">Certificates</h2>
           <div id="certificates-container">
             <div class="form-group">
               <div class="form-row">
                 <div class="form-col">
-                  <label for="certificate1">Certificate</label>
+                  <label for="certificateName1">Certificate Name</label>
                   <input
                     type="text"
-                    id="certificate1"
+                    id="certificateName1"
                     placeholder="Full Stack Development"
                     oninput="updateResume()"
                   />
                 </div>
                 <div class="form-col">
-                  <label for="institute1">Institute</label>
+                  <label for="certificateInstitute1">Institute</label>
                   <input
                     type="text"
-                    id="institute1"
+                    id="certificateInstitute1"
                     placeholder="ABC Academy"
                     oninput="updateResume()"
                   />
                 </div>
                 <div class="form-col">
-                  <label for="duration1">Duration</label>
+                  <label for="certificateDuration1">Duration</label>
                   <input
                     type="text"
-                    id="duration1"
+                    id="certificateDuration1"
                     placeholder="6 Months"
                     oninput="updateResume()"
                   />
@@ -747,7 +749,6 @@
               </div>
             </div>
           </div>
-
           <div class="form-actions">
             <button type="button" class="add-btn" onclick="addCertificate()">
               Add Certificate
@@ -796,6 +797,12 @@
               </div>
             </div>
 
+            <!-- ADD INTERNSHIPS PREVIEW SECTION -->
+            <div class="resume-section" id="internshipsPreviewSection">
+              <h2 class="section-heading">Internships</h2>
+              <div id="previewInternships"></div>
+            </div>
+
             <div class="resume-section">
               <h2 class="section-heading">Education</h2>
               <div id="previewEducation">
@@ -837,6 +844,12 @@
               </div>
             </div>
 
+            <!-- ADD CERTIFICATES PREVIEW SECTION -->
+            <div class="resume-section" id="certificatesPreviewSection">
+              <h2 class="section-heading">Certifications</h2>
+              <div id="previewCertificates"></div>
+            </div>
+
             <div class="resume-section">
               <h2 class="section-heading">Achievements</h2>
               <div id="previewAchievements">
@@ -854,6 +867,8 @@
       let educationCount = 1;
       let projectCount = 1;
       let achievementCount = 1;
+      let internshipCount = 1;
+      let certificateCount = 1;
 
       // Update resume preview with form data
       function updateResume() {
@@ -895,6 +910,8 @@
         updateEducationPreview();
         updateProjectsPreview();
         updateAchievementsPreview();
+        updateInternshipsPreview(); // ADD THIS
+        updateCertificatesPreview(); // ADD THIS
       }
 
       // Add new experience field
@@ -1160,62 +1177,154 @@
         }
       }
 
-      let internshipCount = 1;
-
+      // Add new internship field
       function addInternship() {
         internshipCount++;
         const container = document.getElementById("internships-container");
         const newInternship = document.createElement("div");
         newInternship.className = "form-group";
         newInternship.innerHTML = `
-        <div class="form-row">
+          <div class="form-row">
             <div class="form-col">
-                <label for="company${internshipCount}">Company Name</label>
-                <input type="text" id="company${internshipCount}" placeholder="Tech Solutions Pvt Ltd" oninput="updateResume()">
+              <label for="internshipCompany${internshipCount}">Company Name</label>
+              <input type="text" id="internshipCompany${internshipCount}" placeholder="Tech Solutions Pvt Ltd" oninput="updateResume()">
             </div>
             <div class="form-col">
-                <label for="domain${internshipCount}">Domain</label>
-                <input type="text" id="domain${internshipCount}" placeholder="Web Development" oninput="updateResume()">
+              <label for="internshipDomain${internshipCount}">Domain</label>
+              <input type="text" id="internshipDomain${internshipCount}" placeholder="Web Development" oninput="updateResume()">
             </div>
             <div class="form-col">
-                <label for="duration${internshipCount}">Duration</label>
-                <input type="text" id="duration${internshipCount}" placeholder="3 Months" oninput="updateResume()">
+              <label for="internshipDuration${internshipCount}">Duration</label>
+              <input type="text" id="internshipDuration${internshipCount}" placeholder="3 Months" oninput="updateResume()">
             </div>
-        </div>
-        <div class="form-actions">
+          </div>
+          <div class="form-actions">
             <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
-        </div>
-    `;
+          </div>
+        `;
         container.appendChild(newInternship);
       }
 
-      let certificateCount = 1;
+      // Update internships preview
+      function updateInternshipsPreview() {
+        const previewContainer = document.getElementById("previewInternships");
+        const sectionContainer = document.getElementById("internshipsPreviewSection");
+        previewContainer.innerHTML = "";
 
+        let hasInternships = false;
+
+        for (let i = 1; i <= internshipCount; i++) {
+          const company = document.getElementById(`internshipCompany${i}`);
+          const domain = document.getElementById(`internshipDomain${i}`);
+          const duration = document.getElementById(`internshipDuration${i}`);
+
+          if (company && company.value) {
+            hasInternships = true;
+            const internshipItem = document.createElement("div");
+            internshipItem.className = "internship-item";
+
+            const itemHeader = document.createElement("div");
+            itemHeader.className = "item-header";
+
+            const itemTitle = document.createElement("span");
+            itemTitle.className = "item-title";
+            itemTitle.textContent = company.value;
+
+            const itemDate = document.createElement("span");
+            itemDate.className = "item-date";
+            itemDate.textContent = duration ? duration.value : "";
+
+            itemHeader.appendChild(itemTitle);
+            itemHeader.appendChild(itemDate);
+
+            const itemSubtitle = document.createElement("p");
+            itemSubtitle.className = "item-subtitle";
+            itemSubtitle.textContent = domain ? domain.value : "";
+
+            internshipItem.appendChild(itemHeader);
+            internshipItem.appendChild(itemSubtitle);
+
+            previewContainer.appendChild(internshipItem);
+          }
+        }
+
+        // Hide section if no internships
+        sectionContainer.style.display = hasInternships ? "block" : "none";
+      }
+
+      // Add new certificate field
       function addCertificate() {
         certificateCount++;
         const container = document.getElementById("certificates-container");
         const newCertificate = document.createElement("div");
         newCertificate.className = "form-group";
         newCertificate.innerHTML = `
-        <div class="form-row">
+          <div class="form-row">
             <div class="form-col">
-                <label for="certificateName${certificateCount}">Certificate Name</label>
-                <input type="text" id="certificateName${certificateCount}" placeholder="Full Stack Development" oninput="updateResume()">
+              <label for="certificateName${certificateCount}">Certificate Name</label>
+              <input type="text" id="certificateName${certificateCount}" placeholder="Full Stack Development" oninput="updateResume()">
             </div>
             <div class="form-col">
-                <label for="institute${certificateCount}">Institute</label>
-                <input type="text" id="institute${certificateCount}" placeholder="ABC Academy" oninput="updateResume()">
+              <label for="certificateInstitute${certificateCount}">Institute</label>
+              <input type="text" id="certificateInstitute${certificateCount}" placeholder="ABC Academy" oninput="updateResume()">
             </div>
             <div class="form-col">
-                <label for="duration${certificateCount}">Duration</label>
-                <input type="text" id="duration${certificateCount}" placeholder="6 Months" oninput="updateResume()">
+              <label for="certificateDuration${certificateCount}">Duration</label>
+              <input type="text" id="certificateDuration${certificateCount}" placeholder="6 Months" oninput="updateResume()">
             </div>
-        </div>
-        <div class="form-actions">
+          </div>
+          <div class="form-actions">
             <button class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateResume();">Remove</button>
-        </div>
-    `;
+          </div>
+        `;
         container.appendChild(newCertificate);
+      }
+
+      // Update certificates preview
+      function updateCertificatesPreview() {
+        const previewContainer = document.getElementById("previewCertificates");
+        const sectionContainer = document.getElementById("certificatesPreviewSection");
+        previewContainer.innerHTML = "";
+
+        let hasCertificates = false;
+
+        for (let i = 1; i <= certificateCount; i++) {
+          const certificateName = document.getElementById(`certificateName${i}`);
+          const institute = document.getElementById(`certificateInstitute${i}`);
+          const duration = document.getElementById(`certificateDuration${i}`);
+
+          if (certificateName && certificateName.value) {
+            hasCertificates = true;
+            const certificateItem = document.createElement("div");
+            certificateItem.className = "certificate-item";
+
+            const itemHeader = document.createElement("div");
+            itemHeader.className = "item-header";
+
+            const itemTitle = document.createElement("span");
+            itemTitle.className = "item-title";
+            itemTitle.textContent = certificateName.value;
+
+            const itemDate = document.createElement("span");
+            itemDate.className = "item-date";
+            itemDate.textContent = duration ? duration.value : "";
+
+            itemHeader.appendChild(itemTitle);
+            itemHeader.appendChild(itemDate);
+
+            const itemSubtitle = document.createElement("p");
+            itemSubtitle.className = "item-subtitle";
+            itemSubtitle.textContent = institute ? institute.value : "";
+
+            certificateItem.appendChild(itemHeader);
+            certificateItem.appendChild(itemSubtitle);
+
+            previewContainer.appendChild(certificateItem);
+          }
+        }
+
+        // Hide section if no certificates
+        sectionContainer.style.display = hasCertificates ? "block" : "none";
       }
 
       // Add new achievement field
@@ -1276,35 +1385,25 @@
           educationCount = 1;
           projectCount = 1;
           achievementCount = 1;
+          internshipCount = 1;
+          certificateCount = 1;
 
-          // Remove additional fields
-          const experienceContainer = document.getElementById(
-            "experience-container"
-          );
-          const educationContainer = document.getElementById(
-            "education-container"
-          );
-          const projectsContainer =
-            document.getElementById("projects-container");
-          const achievementsContainer = document.getElementById(
-            "achievements-container"
-          );
+          // Remove additional fields from all containers
+          const containers = [
+            "experience-container",
+            "education-container",
+            "projects-container",
+            "achievements-container",
+            "internships-container",
+            "certificates-container"
+          ];
 
-          while (experienceContainer.children.length > 1) {
-            experienceContainer.removeChild(experienceContainer.lastChild);
-          }
-
-          while (educationContainer.children.length > 1) {
-            educationContainer.removeChild(educationContainer.lastChild);
-          }
-
-          while (projectsContainer.children.length > 1) {
-            projectsContainer.removeChild(projectsContainer.lastChild);
-          }
-
-          while (achievementsContainer.children.length > 1) {
-            achievementsContainer.removeChild(achievementsContainer.lastChild);
-          }
+          containers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            while (container.children.length > 1) {
+              container.removeChild(container.lastChild);
+            }
+          });
 
           // Update preview
           updateResume();
